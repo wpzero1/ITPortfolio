@@ -1,0 +1,24 @@
+실전 예제 만들기
+
+1. 배열까지의 학습 내용을 리뷰하는 application 만들기
+2. 구조
+	1. pattern
+		1) MVC
+		2) DTO(VO, bean)
+	2. 실전 개발 설계 (클래스를 각자 다르게 생성할 것임)
+		1) main이 있는 시작 가능한 클래스
+		  : customer.view.StartView.java  (앞쪽은 패키지 이름을 나타냄. 고객관리를 예로 든다면...)
+		2) 데이터 표현용 클래스 (DTO가 우선이다. 데이터베이스가 구축되어있어야함)
+		  : customer.domain.~DTO.java[~VO.java, ~Bean.java, ~java] (명칭은 회사마다 다름)
+		3) 데이터 보유하고 삭제하고 수정하는 등의 핵심 클래스
+		  : customer.model.~Model.java
+		4) 어떤 로직 요청인지 구분하는 컨트롤러 클래스
+		  : customer.controller.~Controller.java
+		5) 결과값 출력하는 클래스
+		  : customer.view.EndView.java
+		  
+	3. 실행 process
+		StartView -> Controller -> Model -> Controller -> EndView
+		
+		  
+		  
