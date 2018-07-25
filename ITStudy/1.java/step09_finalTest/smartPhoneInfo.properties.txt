@@ -1,0 +1,2 @@
+#modelNum	modelName price network
+SHV-E250S=SHV-E250S,Galaxy Note II,100,Wi-Fi bluetooth 4.0
