@@ -1,0 +1,133 @@
+--10.view.sql
+/*
+1. view 에 대한 학습
+2. 개념
+	- 보안을 고려해야 하는 table의 특정 컬럼값 은닉 가능한 기술
+	- 여러개의 table의 조인된 데이터를 빈번히 활용을 해야 할 경우	다수 table 조인된 결과의 새로운 테이블 자체를 가상으로 db내에 생성시킬수 있는 기법 
+
+3. 문법
+	- create와 drop : create view/drop view
+	- crud는 table과 동일
+
+4. view기반으로 crud 반영시 실제 원본 table에도 반영이 되나?
+
+5. 종류
+	5-1. 단일 view : 별도의 조인 없이 하나의 table로 부터 파생된 view
+	5-2. 복합 view : 다수의 table에 조인 작업의 결과값을 보유하는 view
+	5-3. 인라인 view : sql의 from 절에 view 문장  
+
+6. 실습 table
+	-dept01 table생성 -> dept01_v view 를 생성 -> crud -> view select/dept01 select 
+	
+7. 참고
+	- fk로 설정되어 있는 부모 table을 자식 table이 존재함에도 삭제하는 명령어가 cascade constraints. 제약조건도 무효화
+	drop table dept01 cascade constraints;
+*/
+--1. test table생성
+drop view dept01_v; --view라는걸 알려주기 위해 테이블에 _v를 붙였음.(현업에서도 주로 쓰임)
+drop table dept01;
+
+create table dept01 as select * from dept;
+
+
+--2. dept01 table상의 view를 생성
+create view dept01_v as select * from dept01;
+-- 그런데 ORA-01031: insufficient privileges 오류가 나온다.
+
+connect system/manager
+grant create view to SCOTT
+
+그리고 다시 connect SCOTT/TIGER
+
+select * from dept01_v;
+insert into dept01_v values(50, '교육부', '역삼');
+
+--view에서 crud한 것을 통해서 원본테이블도 데이터가 crud된다.
+
+--3. ? emp table에서 comm을 제외한 emp01_v 라는 view 생성
+drop view emp01_v;
+
+--comm 정보 은닉을 위한 실제 view 필요성
+
+drop view emp01_v;
+create view emp01_v as select empno, ename, job, hiredate, sal from emp;
+
+desc emp01_v;
+select * from emp01_v;
+
+
+--4. dept01_v에 crud : dep01_v와 dept01 table 변화 동시 검색
+select * form dept01_v;
+insert into dept01_v values(50, '교육부', '홍대');
+select * from dept01_v;
+select * from dept01;
+
+
+update dept01_v set loc='마포' where deptno=50;
+select * from dept01_v;
+select * from dept01;
+
+
+delete from dept01_v where deptno=50;
+select * from dept01_v;
+select * from dept01; 
+
+
+--5. view의 특정 컬럼만 수정 금지
+	-- with check option 표기법 사용
+	-- where 절에 조건식으로 반영한 데이터를 보호하는 설정
+	-- deptno=30이 아닌 다른 수치값으로 변경 불가
+drop view dept01_v;
+
+create view dept01_v
+as select * from dept
+where deptno = 30 with check option;
+
+
+update dept01_v set loc='홍대' where deptno=10; --가능(but 10 데이터는 없기 때문에 무시)
+update dept01_v set loc='홍대' where deptno=30; --가능
+--update dept01_v set deptno=50 where loc='홍대'; 
+-- 불가능. check option이 달려있다는 말이 나옴. 즉 deptno가 30만 들어가야 하기 때문에 안됨.
+
+
+
+--6. view자체에 DML 금지[*select만 가능한 view]
+	-- with read only
+drop view dept01_v;
+create view dept01_v
+as select * from dept01 where deptno=30 with read only;
+
+insert into dept01_v values(50, '총무부', '종로');
+insert into dept01_v values(30, '총무부', '종로');
+-- 둘다 안되는 상황. 30이던 50이던 그냥 select만 된다.
+
+
+--가상의 논리적인 테이블, view.
+--7. 모든 end user가 빈번히 사용하는 sql문장으로 해당 직원의 모든 정보 검색하기
+	-- 두개의 table을 join 	. 이럴때 view 많이 쓴다고...
+	--? emp01_dept01_v 라는 view 생성하기 
+		-- 모든 고객의 모든 정보(empno, ename, deptno, dname, loc)를 보유한 view
+drop table emp01;
+drop table dept01;
+create table emp01 as select empno, ename, deptno, sal from emp;
+create table dept01 as select * from dept;
+
+create view emp01_dept01_v
+as
+select empno, ename, e.deptno, dname, loc
+from emp e, dept d
+where e.deptno = d.deptno;
+
+select * from emp01_dept01_v;
+
+--조인 sql문장부터 잘 만들어라.
+
+--8. 논리적인 가상의 table이 어떤 구조로 되어 있는지 확인 가능한 oracle  자체 table
+	-- view는 text 기반으로 명령어가 저장
+	-- view에 대한 딕셔너리 테이블이라고 생각.
+	select * from user_views;
+	desc user_views;
+	
+
+
+

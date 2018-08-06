@@ -1,0 +1,82 @@
+--12.sequence.sql
+/*
+1. 시퀀스 : 고유한 숫자값을 index화 해서 자동으로 반영할수 있는 유용한 기술 (insert할 때..)
+2. 대표적인 활용 영역
+	- 게시물 글번호에 주로 사용
+3. 특징
+	- 절대 중복 불가 
+	
+4. 고려사항
+	- 1000건의 게시글에 500번째 게시글은 내글
+	- 차후에 500번 게시글을 삭제하는 경우에...
+	  게시글 순서 재정렬? x
+	  500번 없는 상태 유지? 빙고.
+5. 중요(문법)
+	1. 생성
+		create sequence 시퀀스명;
+			시퀀스명 - 어떤 table의 어떤컬럼
+	2. 삭제
+		drop sequence 시퀀스명;
+	3. 사용 속성
+		1) 증가용도의 속성 : nextval
+		2) 현 시퀀스 값 확인 : currval
+		
+		select seq_test_seq.currval from dual;
+*/	
+
+--1. sequence 생성 명령어
+drop table seq_test;
+create table seq_test(
+	no1 number(2),
+	no2 number(2)
+);
+
+create sequence seq_test_seq;
+
+
+
+--2. seq~를 활용한 insert
+	-- 기본적으로 생성한 경우 1씩 자동 증가
+insert into seq_test values(seq_test_seq.nextval, 1);
+insert into seq_test values(seq_test_seq.nextval, 2);
+insert into seq_test values(seq_test_seq.nextval, 3);
+select * from seq_test;
+
+
+--3. 다수의 table에서 하나의 seq를 공동 사용시? 절대 비추! 테이블당 개별로. 연결되어있다.
+create table seq_test2(
+	no1 number(2),
+	no2 number(2)
+);
+insert into seq_test2 values(seq_test_seq.nextval, 1);
+insert into seq_test2 values(seq_test_seq.nextval, 2);
+
+insert into seq_test values(seq_test_seq.nextval, 1);
+
+select * from seq_test;
+select * from seq_test2;
+
+--잘보면 nextval이 차례대로 넣는거고, 숫자는 확인측면에서 넣었다.
+--다른 시퀀스를 만들었는데도 번호가 3 다음으로 4,5가 나오고 다시 시퀀스1에 와도 증가됨. 
+
+--4. 시작index 지정 및 증가치도 지정하는 seq 생성 명령어
+create sequence seq2_test start with 1 increment by 2 maxvalue 10;
+--시작은 1, 증가치 2로 조작, 최대값은 10
+
+
+delete from seq_test;
+delete from seq_test2;
+commit;
+insert into seq_test values(seq2_test.nextval, 1);
+insert into seq_test values(seq2_test.nextval, 2);
+insert into seq_test values(seq2_test.nextval, 2);
+select * from seq_test;
+
+--5. seq 삭제 명령어
+drop sequence seq_test_seq;
+
+--6. 현 sequence의 데이터값 검색하기
+
+select seq_test_seq.currval from dual;
+
+
