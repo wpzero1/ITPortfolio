@@ -1,0 +1,11 @@
+
+
+3. 가급적 db를 admin 계정으로 데이터를 생성,삭제,공유 피해야함
+4. 생성할 사용자 계정
+	id - scott
+	pw - tiger
+	10버전 부터는 대문자로 제공
+5. 가령
+	부서 정보로 excel에 table 만들기
+		- dept : table
+		- 부서 번호(deptno), 부서명(dname), 부서지역(loc)
