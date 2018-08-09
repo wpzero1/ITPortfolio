@@ -1,0 +1,34 @@
+package model;
+
+import java.util.ArrayList;
+
+public class DeptDAO {
+	//모든 검색
+	//select * from dept
+		public static ArrayList <DeptDTO> getAll(){
+			return null;
+		}
+	//deptno로 해당 부서 정보 검색
+		
+		public static DeptDTO getDept(int deptno) {
+			return null;
+		}
+	
+	//새로운 부서 정보 저장
+		public static boolean insert(DeptDTO newDept) { //DTO객체가 아닌 변수로 일일히 다 넣어줄 수도 있지만
+			//( int deptno, String dname) 처럼.. 그러나, 효율성 측면에서 DTO 객체
+			return false;
+		}
+		
+	//deptno로 loc 수정
+		public static boolean update(int deptno, String newLoc) {
+			return false;
+		}
+	
+	//deptno로 해당 부서 삭제
+		public static boolean delete(int deptno) {
+			return false;
+			
+		}
+	
+}

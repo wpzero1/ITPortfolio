@@ -1,0 +1,45 @@
+package controller;
+
+import java.util.ArrayList;
+
+import model.DeptDAO;
+import model.domain.DeptDTO;
+import view.EndView;
+
+public class Controller {
+	private static Controller instance = new Controller();
+	private Controller() {} //싱글톤 선언시에 private
+	public static Controller getInstance() { //싱글톤 쓸 때 다른데서도 자유롭게 호출해야한다. 그럼 static 써야하는데, 위에 변수도 static 선언
+		return instance;
+	}
+	
+	//모든 검색
+	/* 발생 가능한 경우의 수
+	 * 1. 정상 실행
+	 * 		- 데이터가 있다 : EndView에게 ArrayList 객체 전송
+	 * 		- 데이터가 없다 : EndView에서 검색한 데이터는 없습니다... 메시지 출력
+	 * 2. 비정상 실행
+	 * 		- 예외 발생  : 죄송합니다. 잠시후에 재 요청 바랍니다... 메시지
+	 */
+	
+	public void getDeptAll() {
+		try { //정상 실행
+			ArrayList<DeptDTO> datas = DeptDAO.getAll(); //ArrayList에 통으로 받아올거야.
+			if(datas.size() != 0) {
+				EndView.printAll(datas); //데이터 있는 경우
+				
+			}else {
+				EndView.succMsg("검색된 데이터가 없습니다.");
+			}
+		} catch (Exception e) { //비정상 실행
+			e.printStackTrace();
+			EndView.errorMsg("죄송합니다. 잠시후에 재 요청 바랍니다.");
+		} 
+	}
+	
+	//insert
+	/*
+	 * 
+	 */
+	
+}

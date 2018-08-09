@@ -1,0 +1,228 @@
+package view;
+
+import java.util.Scanner;
+
+import controller.Controller;
+import model.domain.AccomDTO;
+import model.domain.BookMarkDTO;
+import model.domain.FoodDTO;
+
+public class StartView {
+
+	static void printMenu() {
+		System.out.println("**********MENU**********");
+		System.out.println("	1. 서울 주요명소 숙소 추천");
+		System.out.println("	2. 숙소 정보 추가");
+		System.out.println("	3. 숙소 정보 삭제");
+		System.out.println("ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ");
+		System.out.println("	4. 서울 주요명소 맛집 추천");
+		System.out.println("	5. 맛집 정보 추가");
+		System.out.println("	6. 맛집 정보 삭제");
+		System.out.println("ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ ㅡ");
+		System.out.println("	7. 북마크 확인");
+		System.out.println("	8. 북마크 삭제");
+		System.out.println("	9. 프로그램 종료");
+		System.out.println("*************************");
+		System.out.print("메뉴 선택: ");
+	}
+	
+	public static void main(String[] args) {
+		Controller controller = Controller.getInstance();
+		
+		Scanner sc=new Scanner(System.in);
+		String menuNum=null;
+		
+		while(true) {
+			printMenu();
+			menuNum = sc.nextLine();
+			Scanner scanner = null;
+			Scanner scan1 = null;
+			Scanner scan2 = null;
+			
+			
+			switch(menuNum) {
+				case "1":	//지역입력->숙소 추천 ->북마크추가
+					scanner = new Scanner(System.in);
+					System.out.println("\t\t\t\t\t<서울 주요 명소>");
+					System.out.println("1)명동		2)동대문시장		3)남대문시장		4)고궁			5)남산타워");
+					System.out.println("6)인사동	7)박물관		8)이태원		9)신촌/홍대주변	10)강남");
+					System.out.print("지역 번호 입력: ");
+					int areaNum = scanner.nextInt();
+					
+					String station = null;
+					if(areaNum == 1) {
+						station = "명동역";
+					}else if(areaNum == 2) {
+						station = "동대문역";
+					}else if(areaNum == 3) {
+						station = "회현역";
+					}else if(areaNum == 4) {
+						station = "광화문역";
+					}else if(areaNum == 5) {
+						station = "충무로역";
+					}else if(areaNum == 6) {
+						station = "종로3가역";
+					}else if(areaNum == 7) {
+						station = "이촌역";
+					}else if(areaNum == 8) {
+						station = "이태원역";
+					}else if(areaNum == 9) {
+						station = "홍대입구역";
+					}else if(areaNum == 10) {
+						station = "강남역";
+					}else {
+						station = null;
+					}
+					controller.getAccom(station);
+					scan1 = new Scanner(System.in);
+					scan2 = new Scanner(System.in);
+					System.out.print("북마크 하시겠습니까?(1.예  /  2.아니오): ");
+					int ans = scan1.nextInt();
+					if(ans == 1) {
+						System.out.print("북마크할 숙소번호를 입력하세요: ");
+						int num = scan2.nextInt();
+						
+						controller.insertBookMark(new BookMarkDTO("숙소", num));
+					}else {
+						break;
+					}
+					break;
+					
+				case "2":		//숙소 추가
+					scanner = new Scanner(System.in);
+					System.out.print("업소명: ");
+					String a_name = scanner.nextLine();
+					System.out.print("전화번호: ");
+					String a_tel = scanner.nextLine();
+					System.out.print("도로명 주소: ");
+					String a_address = scanner.nextLine();
+					System.out.print("주변 지하철역: ");
+					station = scanner.nextLine();
+					
+					controller.insertAccom(new AccomDTO(a_name, a_tel, a_address, station));
+					break;
+					
+				case "3":		//숙소 데이터 삭제
+					scanner = new Scanner(System.in);
+					controller.getAll();
+					System.out.print("\n삭제할 숙소 연번을 입력하세요: ");
+					int index = scanner.nextInt();
+					controller.delete(index);
+					break;
+				
+					
+				case "4":		//맛집 추천
+					scanner = new Scanner(System.in);
+		               System.out.println("\t\t\t\t\t\t<서울 주요 명소>");
+		               System.out.println("1)명동		2)동대문시장		3)남대문시장		4)고궁			5)남산타워");
+						System.out.println("6)인사동	7)박물관		8)이태원		9)신촌/홍대주변	10)강남");
+		               System.out.print("지역 번호 입력: ");
+		               int foodareaNum = scanner.nextInt();
+		               
+		               String foodstation = null;
+		               if(foodareaNum == 1) {
+		                  foodstation = "명동역";
+		               }else if(foodareaNum == 2) {
+		                  foodstation = "동대문역";
+		               }else if(foodareaNum == 3) {
+		                  foodstation = "회현역";
+		               }else if(foodareaNum == 4) {
+		                  foodstation = "광화문역";
+		               }else if(foodareaNum == 5) {
+		                  foodstation = "충무로역";
+		               }else if(foodareaNum == 6) {
+		                  foodstation = "종로3가역";
+		               }else if(foodareaNum == 7) {
+		                  foodstation = "이촌역";
+		               }else if(foodareaNum == 8) {
+		                  foodstation = "이태원역";
+		               }else if(foodareaNum == 9) {
+		                  foodstation = "홍대입구역";
+		               }else if(foodareaNum == 10) {
+		                  foodstation = "강남역";
+		               }else {
+		                  foodstation = null;
+		               }
+		               controller.getFood(foodstation);
+		               
+		               scan1 = new Scanner(System.in);
+						scan2 = new Scanner(System.in);
+						System.out.print("북마크 하시겠습니까?(1.예  /  2.아니오): ");
+						int ans2 = scan1.nextInt();
+						if(ans2 == 1) {
+							System.out.print("북마크할 맛집번호를 입력하세요: ");
+							int num = scan2.nextInt();
+							
+							controller.insertBookMark(new BookMarkDTO("맛집", num));
+						}else {
+							break;
+						}
+						break;
+		               
+
+					
+				case "5":	//맛집 추가
+					 scanner = new Scanner(System.in);
+		               System.out.print("업소명: ");
+		               String f_name = scanner.nextLine();
+		               System.out.print("업종: ");
+		               String f_kind = scanner.nextLine();
+		               System.out.print("전화번호: ");
+		               String f_tel = scanner.nextLine();
+		               System.out.print("도로명 주소: ");
+		               String f_address = scanner.nextLine();
+		               System.out.print("주변 지하철역: ");
+		               String foodstation2 = scanner.nextLine();
+		               
+		               controller.insertFood(new FoodDTO(f_name, f_kind, f_tel, f_address, foodstation2));
+
+					break;
+					
+				case "6":		//맛집 삭제
+					   scanner = new Scanner(System.in);
+		               controller.getFoodAll();
+		               System.out.print("\n삭제할 맛집 연번을 입력하세요: ");
+		               int index2 = scanner.nextInt();
+		               controller.deleteFood(index2);
+
+					break;
+					
+				case "7":	//북마크 확인
+					controller.getBookMark();
+					
+					break;
+					
+					
+				case "8":	//북마크 삭제
+					scanner = new Scanner(System.in);
+					System.out.print("삭제할 북마크 번호를 입력하세요: ");
+					int idx = scanner.nextInt();
+					controller.deleteBookMark(idx);
+					break;
+					
+				case "9":
+					System.out.println("프로그램을 종료합니다.");
+					break;
+				default:
+					System.out.println("1부터 9사이의 숫자만 입력하세요.");
+					break;
+			}	//switch
+			if(menuNum.equals("9")) {
+				if(sc !=null ) {
+					sc.close();
+				}
+				if(scanner !=null) {
+					scanner.close();
+				}
+				if(scan1 != null) {
+					scan1.close();
+				}
+				if(scan2 != null) {
+					scan2.close();
+				}
+				break;
+			}		
+		}	//while
+		
+	}
+}

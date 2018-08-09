@@ -1,0 +1,97 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import model.domain.DeptDTO;
+import util.DBUtil;
+
+public class DeptDAO {
+	//모든 검색
+	//select * from dept
+		public static ArrayList <DeptDTO> getAll() throws Exception{ //던지면 받는것도 동시에 써야함.
+			Connection con = null; //finally에서 쓰기 위해서 try문 밖에서 선언
+			Statement stmt = null;
+			ResultSet rs = null;
+			ArrayList<DeptDTO> datas = null; //ArrayList 배열 생성 및 초기화
+			
+			try {
+				con = DBUtil.getConnection(); //연결
+				stmt = con.createStatement(); //sql실행 가능 메소드. 연결된 con을 같이 써줘야 불러올 수 있음
+				rs = stmt.executeQuery("select * from dept");
+				
+				datas = new ArrayList<DeptDTO>(); //select가 이루어진 다음에 여기서 객체 만드는게 더 낫다고 봄.
+				while(rs.next()) { //row값을 확인하는 것
+					datas.add(new DeptDTO(rs.getInt(1), rs.getString(2), rs.getString(3)));
+					//여기서 인덱스는 1부터 시작한다. 인덱스 하나씩 뽑아서 DeptDTO의 datas에 add로 넣어 새로운 객체 만드는 과정
+					//이 문장 쓸 때, 
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e; //catch 내에서 다시 던진다. 그래야만 엔드유저에게 상황전달 가능. (엔드유저, 개발자 모두가 상황을 알아야함)
+			} finally { //try가 있어야만 쓸 수 있는 블록
+				DBUtil.close(con, stmt, rs);
+			}
+			return datas;
+		}
+	//deptno로 해당 부서 정보 검색
+		
+		public static DeptDTO getDept(int deptno) {
+			return null;
+		}
+	
+	//새로운 부서 정보 저장
+		//insert into dept values (?, ?, ?)
+		//insert into dept values(50, '총무부', '역삼')
+		// -> 이거로 넣으려면, (와 ' 까지 다 " " 문자열 안에다가 다 넣어주는 일이 발생해서 불편하다. 그래서 미리 만들어진 PreparedStatement를 써주게된다.
+		public static boolean insert(DeptDTO newDept) throws SQLException { //DTO객체가 아닌 변수로 일일히 다 넣어줄 수도 있지만
+			//( int deptno, String dname) 처럼.. 그러나, 효율성 측면에서 DTO 객체
+			
+			//위에서 써온 코드 복붙, 그리고 수정 들어갑니다
+			
+			Connection con = null; //finally에서 쓰기 위해서 try문 밖에서 선언
+			PreparedStatement pstmt = null; //이 객체가 생성되는 시점엔 이미 고정된 sql문장 내장. 변수는 pstmt로 쓴다. (alt shift r로 이름 전체 바꿈)
+			ResultSet rs = null;
+			ArrayList<DeptDTO> datas = null; //ArrayList 배열 생성 및 초기화
+			
+			try {
+				con = DBUtil.getConnection(); //연결
+				pstmt = con.prepareStatement("insert into dept value(?,?,?)"); //속도도 빠르고 미리 선약된 statement. 변수 개수만큼 ? 지정해준다
+				rs = pstmt.executeQuery(); //그럼 실행에서 파라메터는 없어야된다. 위에서 이미 sql문장을 지정해줬기 때문
+				//?에 데이터값 순차적으로 셋팅
+				pstmt.setInt(1, newDept.getDeptno()); //1번째 물음표에 값을 넣어주겠다는 의미
+				pstmt.setString(2, newDept.getDname()); //2번째 물음표
+				pstmt.setString(3, newDept.getLoc()); //3번째 물음표
+				
+				//db에 실제 실행
+				
+				int result =pstmt.executeUpdate(); //insert/update/delete 실행 메소드
+				if(result == 0) {
+					return false; //finally에서 자원부터 반환되고 return이 나옴.
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			} finally { //finally부터 실행되고 return 실행. 결국 둘다 실행되는 것임. 정말 중요한 문장.
+				DBUtil.close(con, pstmt);
+			}
+			return true;
+		}
+		
+	//deptno로 loc 수정
+		public static boolean update(int deptno, String newLoc) {
+			return false;
+		}
+	
+	//deptno로 해당 부서 삭제
+		public static boolean delete(int deptno) {
+			return false;
+			
+		}
+	
+}

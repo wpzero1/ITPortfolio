@@ -1,0 +1,90 @@
+package controller;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import model.DeptDAO;
+import model.domain.DeptDTO;
+import view.EndView;
+
+public class Controller {
+	private static Controller instance = new Controller();
+	private Controller() {} //싱글톤 선언시에 private
+	public static Controller getInstance() { //싱글톤 쓸 때 다른데서도 자유롭게 호출해야한다. 그럼 static 써야하는데, 위에 변수도 static 선언
+		return instance;
+	}
+	
+	//모든 검색
+	/* 발생 가능한 경우의 수
+	 * 1. 정상 실행
+	 * 		- 데이터가 있다 : EndView에게 ArrayList 객체 전송
+	 * 		- 데이터가 없다 : EndView에서 검색한 데이터는 없습니다... 메시지 출력
+	 * 2. 비정상 실행
+	 * 		- 예외 발생  : 죄송합니다. 잠시후에 재 요청 바랍니다... 메시지
+	 */
+	
+	public void getDeptAll() {
+		try { //정상 실행
+			ArrayList<DeptDTO> datas = DeptDAO.getAll(); //ArrayList에 통으로 받아올거야.
+			if(datas.size() != 0) {
+				EndView.printAll(datas); //데이터 있는 경우
+				
+			}else {
+				EndView.succMsg("검색된 데이터가 없습니다.");
+			}
+		} catch (Exception e) { //비정상 실행
+			e.printStackTrace();
+			EndView.errorMsg("죄송합니다 잠시후에 재 요청 바랍니다.");
+		} 
+	}
+	
+	public void getDeptInfo(int deptno) {
+		try { //정상 실행
+			DeptDTO datas = DeptDAO.getDeptInfoAll(deptno); //ArrayList에 통으로 받아올거야.
+			if(datas != null) {
+				EndView.printAll(datas); //데이터 있는 경우
+				
+			}else {
+				EndView.succMsg("검색된 데이터가 없습니다.");
+			}
+		} catch (Exception e) { //비정상 실행
+			e.printStackTrace();
+			EndView.errorMsg("죄송합니다 잠시후에 재 요청 바랍니다.");
+		} 
+	}
+	
+	//insert
+	/* 발생 가능한 경우의 수
+	 * 1. 정상 실행
+	 * 		1) true - 저장 완료, 저장 성공
+	 * 		2) false - 예외는 아니지만 저장은 못했습니다. -> 이런 경우는 사실상 없다
+	 * 
+	 * 2. 비정상 실행
+	 * 		- 이미 존재하는 deptno값 재저장시도시 SQLException 발생
+	 * 		- 이미 존재하는 메세지...
+	 * 
+	 */
+	
+	public void insert(DeptDTO newDTO) {
+		try {
+			if(DeptDAO.insert(newDTO)) {
+				EndView.succMsg("새로운 부서 저장 성공");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			EndView.errorMsg("이미 존재하는 deptno 데이터 입니다");
+		}
+		
+	}
+	public void updateLoc(int deptno, String loc) {
+		try {
+			if(DeptDAO.update(deptno, loc)) {
+				EndView.succMsg("해당 부서의 장소 수정 완료");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			EndView.errorMsg("해당 데이터가 없습니다");
+	}
+	
+	}
+}

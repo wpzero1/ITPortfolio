@@ -1,0 +1,45 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import model.domain.DeptDTO;
+import util.DBUtil;
+
+public class DeptDAO {
+	//모든 검색
+	//select * from dept
+		public static ArrayList <DeptDTO> getAll() throws Exception{ //던지면 받는것도 동시에 써야함.
+			try {
+				Connection con = DBUtil.getConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e; //이 안에서 다시 던진다. 엔드유저도 알고 개발자도 알아야한다.
+			}
+			return null;
+		}
+	//deptno로 해당 부서 정보 검색
+		
+		public static DeptDTO getDept(int deptno) {
+			return null;
+		}
+	
+	//새로운 부서 정보 저장
+		public static boolean insert(DeptDTO newDept) { //DTO객체가 아닌 변수로 일일히 다 넣어줄 수도 있지만
+			//( int deptno, String dname) 처럼.. 그러나, 효율성 측면에서 DTO 객체
+			return false;
+		}
+		
+	//deptno로 loc 수정
+		public static boolean update(int deptno, String newLoc) {
+			return false;
+		}
+	
+	//deptno로 해당 부서 삭제
+		public static boolean delete(int deptno) {
+			return false;
+			
+		}
+	
+}

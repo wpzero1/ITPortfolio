@@ -1,0 +1,37 @@
+/* oracle driver를 로딩 -> Connection -> Statement -> sql문장 실행
+ * -> ResultSet or int -> 결과값 활용 -> 자원반환
+ * (ojdbc6.jar -> oracle.jdbc.driver -> OracleDriver.class)
+ */
+
+package step01.basic;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class JDBC1 {
+
+	public static void main(String[] args) {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			//System.out.println("driver 설치(로딩) 완료");
+			/* java.sql.Connection은 (구)sun에서 제시한 DB접속 API
+			 * interface 즉 실제 완벽하게 구현된게 아니라 구현하라고 명령들로만 채워짐.
+			 * 실제 구현은 각 회사가 직접 하는 것.
+			 * 이렇게 구현된 것은 ojdbc6.jar로 압축해서 제공 (db마다 다름)
+			 * 따라서 실제 반환받은 Connection은 완벽한 자식 객체이고
+			 * 다형성이 반영된 부모타입으로 upcasting
+			 */
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","SCOTT", "TIGER");
+			//http:// 처럼 통신 규약이 있다.
+		//	System.out.println(con);
+			Statement stmt =con.createStatement(); //sql문장 실행객체. stmt는 다들 이렇게 쓰는 변수명
+			ResultSet rs = stmt.executeQuery("select * from dept");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}
