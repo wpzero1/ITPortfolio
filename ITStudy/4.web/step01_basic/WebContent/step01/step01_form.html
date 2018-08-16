@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="EUC-KR">
+		<title>step01_form.html</title>
+	</head>
+	<body>
+		<h3>1. 단순 요청</h3> 
+		
+		<!--  버튼, 링크 -->
+		<a href="http://www.naver.com">네이버</a>
+		<br>
+		<button onclick="location.href='http://www.daum.net'">button tag로 다음으로 이동</button>
+		
+		<br>
+		<!-- servlet으로 요청하는 form tag에 대한 학습
+		http://ip:port/step01_basic/step01/step01_form.html
+		<form action = "test2"> submit
+		</form>
+		
+		http://ip:port/step01_basic/step01_form.html
+		<form action = "../test2"> submit <- 상위경로로 가서 위에 step01 폴더가 아닌 위에다 저장됨
+		</form>
+		 -->
+		<form action="../test2" method="get">
+			<input type="hidden" name="id" value="master">
+			<input type="submit" value ="요청">
+		</form>
+		<!--  파란 수평선  -->
+		<hr color ="blue">
+		
+		<!--  http://ip:port/project/step01/step01_form.html
+				id/pw 입력 로그인 버튼
+				http://ip:port/portject/test2
+				
+				***
+				servlet 요청에 대해서
+				1. method ="post"
+					http://localhost/step01_basic/test2
+				2. method = "get" or 생략
+					http://localhost/step01_basic/test2?id=master&pw=1
+				
+		 -->
+		<h3>2. 데이터 서버에 전송하면서 요청</h3>
+		<form action="../test2" method="post">
+			<input type="text" name="id" placeholder="id입력">
+			<input type="password" name="pw" placeholder="pw입력">
+			<input type="submit" value ="로그인">
+		</form>
+		
+	</body>
+</html>
