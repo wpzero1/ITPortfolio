@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js2VarFun.html</title>
+	<!--  head 내부에 js 개발 -->
+	<script type="text/javascript">
+	//전역 변수 선언(멤버)
+	var data;
+	data = 10;
+	//alert(data);
+	data = "문자열";
+	
+	//사용자 정의 함수 - 로컬 변수, 전역변수 호출
+	function myFun1(){
+		var data2 = 2; //로컬변수
+		data3 = 3; //전역 변수
+		document.write(data)
+		document.write(data + "<br>");
+		document.write(data2 +"<br>");
+		document.write(data3 +"<br>");
+	}
+	
+	//사용자 정의 함수 호출
+	myFun1();
+	
+	//js 자체 함수 & 브라우저 자체 내장 함수 호출
+	
+	</script>
+</head>
+<body>
+
+	<!--  body 마지막 부분 js 개발 -->
+	<script type="text/javascript">
+	//브라우저 body에 출력하는 내장 함수
+	document.write("한글<br>"); //br은 안에다가 해줘야되네
+	document.write(data + "<br>");
+	
+	function myFun2(){
+		document.write("--------------Fun2<br>")
+		document.write(data + "<br>");
+		//document.write(data2 +"<br>"); 주석 안하면 오류난다
+		document.write(data3 +"<br> 전역변수");
+	}
+	
+	myFun2();
+	
+	
+	</script>
+
+
+	<table border ="2">
+	<tr>
+	<td>confirm()</td>
+	<td>
+	<a href="https://www.w3schools.com/jsref/met_win_confirm.asp">링크이동</a>
+	<tr>
+	<td>display()</td>
+	<td>
+	<a href="https://www.w3schools.com/cssref/pr_class_display.asp">디스플레이</a>
+	<tr>
+	</table> 
+</body>
+</html>

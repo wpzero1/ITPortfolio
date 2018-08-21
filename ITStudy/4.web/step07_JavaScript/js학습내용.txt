@@ -1,0 +1,58 @@
+1. 변수
+	1) 선언 문법
+		[var] 변수명 [=값];
+	2) 호출 문법
+		변수명만
+	3) 특징
+		-	변수의 타입?
+			값이 대입되는 시점에 설정
+			모든 타입 다 수용 가능한 가변적인 타입(동적 타입)
+		- 변수 선언 문법에 따른 차이점
+			1] 전역 변수
+				- <script> tag 내부에 선언되는 모든 변수
+				- var 키워드 유무 중요하지 않음
+			2] 로컬 변수
+				- 함수 내에 선언 되는 변수
+				- var 키워드로 선언 : 로컬
+				- var 키워드 없이 선언 : 전역 (즉 다른 함수에서도 쓸 수 있다)
+				
+2. Ajax [에이작스, 아약스, 아작스...]
+	1) 필수 처리 기술
+		- 서버단 처리 언어 : java
+		- client 처리 언어 : java script
+	2) 개념
+	- java script로 server와 client간에 화면 갱신(새로고침) 없이도 실시간 통신 가능한 기술
+		- 대표 : 구글, 네이버 등의 검색 기능
+			- 요청 후 응답이 올때까지 다른 작업 실시간 가능한 방식 : 비동기 process
+			- 드루킹 검색
+			ㄷ ㅡ ㄹ ㅜ ㅋ ㅣ ㅇ 
+			ㄷ 드 ㄹ 드루... 이런식으로 한 글자씩 데이터 받아감
+			
+			
+		- 예시 : 로그인 요청 -> id/pw 입력 -> submit -> 화면 이동(화면전환)후 유효? 무효? 결과가 view
+				: 요청 후 응답 올 때까지 그 어떠한 작업 실행 불가 - 동기 process
+		
+3. 비동기 개발 java script 기술
+	1) XMLHttpRequest API
+		- 요청, 응답처리를 이 하나의 객체가 다 함
+		- 동작
+			client가 action(event) -> XMLHttpRequest 가 서버에 요청
+			-> 서버는 로직 처리후 응답 -> XMLHttpRequest 객체가 응답 데이터 획득
+			-> html의 특정 영역에 java script로 동적 출력(value, innerText, innerHTML)
+	2) 필요성
+		- 요구사항 방대해지고 서버에 접속하는 user 수는 급상승
+		   서버의 성능을 고려한 작업중, client한테 응답하는 데이터 포맷을 client 시스템에 위임
+		   
+		   js 실행은 client 브라우저
+		   	: 서버는 client에게 js 코드를 문자열로 응답
+		   	   브라우저는 응답된 데이터가 js코드라면 js로 실행
+
+4. JSON
+	1) Java Script Object Notation
+	2) 모든 시스템과 모든 프로그래밍 언어에 100% 호환 가능한 포맷
+	3) 사용 빈도가 높은 사유 : 별칭으로 데이터 구분, 즉 맵 구조
+	4) 문법
+		{"key":"value", "key2":"value2"...}
+* 학습한 참조 사이트
+1. alert()
+2. confirm() - https://www.w3schools.com/jsref/met_win_confirm.asp

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+
+
+<!-- 외부 js 파일 include -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--  html에 js코드 개발 -->
+    
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      //사용자 정의 함수를 body tag가 화면에 보여질 때(로딩) 자동 호출하는 문법
+     // google.charts.setOnLoadCallback(drawChart);
+      
+      function drawChart(v) {
+    	  alert(1);
+        var data = google.visualization.arrayToDataTable(v);
+
+        var options = {
+          title: 'My Daily Activities',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+      	//버튼이 클릭되면 요청해서 응답 받은 데이터를 그래프 그리는 함수에 반영
+      	
+      function ajaxFun(){
+    	  var xhttp = new XMLHttpRequest();
+  		xhttp.onreadystatechange = function() {
+  			if (this.readyState == 4 && this.status == 200) {
+  				var data = this.responseText;
+  				data = eval(data); 
+  				drawChart(data);
+  			}
+  		};
+  		xhttp.open("GET", "js8ChartRes.jsp", true);
+  		xhttp.send();
+      }
+    </script>
+  </head>
+  <body>
+    <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    
+    <button onclick="ajaxFun()">차트 보기</button>
+  </body>
+</html>

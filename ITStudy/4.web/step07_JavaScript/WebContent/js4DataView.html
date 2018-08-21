@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js4DataView.html</title>
+</head>
+<body>
+	html tag의 데이터 및 html 구조를 새롭게 반영하는 작업<br>
+	<font color="red">
+	1. value 속성<br>
+		- input tag처럼 value 속성을 지원하는 태그에만 문자열로 반영가능<br>
+	2. innerText 속성<br>
+		- div, p와 같은 value 속성이 사용 불가능한 tag에 사용되는 속성<br>
+		- 주의사항 : 문자열 데이터만 출력 가능<br>
+	3. innerHTML 속성<br>
+		- div,p와 같은 영역에 html 화면을 동적으로 구성하고자 할때 사용되는 필수 속성<br>
+	</font>
+	<!--  단순 문자열 출력하고자 하는 영역 -->
+	
+	<div id="one"></div>
+	
+	<hr color="blue">
+	
+	<div id="two"></div>
+	<!--  html tag 자체를 화면에 출력해서 새로운 UI 구성 -->
+	
+	<br>
+	<button id="oneview" onclick="fun1()">one</button>
+	<button id="twoView" onclick="fun2()">two</button>
+	
+	
+	<script type="text/javascript">
+	function fun1(){
+		//document.getElementById("one").value= "김한림"; //실행 불가
+		document.getElementById("one").innerText= "김한림";
+	}
+	function fun2(){
+		document.getElementById("two").innerHTML= '<button onclick="alert(\'서영상\')">김한림</button>'; 
+		//얘는 Text가 아니라 HTML로 가능
+	}
+	</script>
+</body>
+</html>

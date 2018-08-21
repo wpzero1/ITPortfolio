@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js3Fun.html</title>
+</head>
+<body>
+	<input type="text" id="v1"><br>
+	<button onclick= "m1()">클릭</button>
+	<hr>
+	
+	<!-- 이미 input tag에 존재하는 데이터 값들을 동적으로 변경하는 기술
+		   예시 : tag 수가 굉장히 다수여서 데이터값도 다수, id값도 다수인 경우라 간주 -->
+	<input type="text" id="v2-1" value="박민영" onclick="m3(this)"><br>
+	<input type="text" id="v2-2" value="박서준" onclick="m3(this)"><br>
+	<script type="text/javascript">
+	//parameter가 적용된 함수
+	function m3(data){
+		alert(data.value);
+	}</script>
+	
+	<script type="text/javascript">
+	//반환없이 단순 함수
+		function m1(){
+			document.getElementById("v1").value = "오늘밤 주인공은 나야나"
+			//태그를 Element라 부르는데, Id라는 value가진 태그 찾는 것
+	}
+	
+		//반환값이 있는 함수 개발
+		function m2(){
+			return 2+99 + "?";
+			
+		}
+		document.getElementById("v1").value = m2();
+	</script>
+
+</body>
+</html>

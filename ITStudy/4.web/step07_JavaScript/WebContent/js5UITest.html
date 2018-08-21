@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>jsUITest.html</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/*
+. : html tag의 class 속성
+# : html tag의 id 속성
+이름 : tag명
+
+1.html tag의 속성
+	class="fa fa-facebook"
+2. class 속성
+	- css로 화면 처리 의미
+	- class속성값 : fa fa-facebook란? 구분자는 띄어쓰기.
+	  fa라는 설정과 fa-facebook라는 설정이 따로 있으니 두가지 설정이 이 하나의 tag를 반영하겠다라는 의미
+	 .fa{...}
+	 fa-facebook {...}
+	 
+*/
+
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+.fa-pinterest {
+  background: #cb2027;
+  color: white;
+}
+
+.fa-snapchat-ghost {
+  background: #fffc00;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.fa-skype {
+  background: #00aff0;
+  color: white;
+}
+
+.fa-android {
+  background: #a4c639;
+  color: white;
+}
+
+.fa-dribbble {
+  background: #ea4c89;
+  color: white;
+}
+
+.fa-vimeo {
+  background: #45bbff;
+  color: white;
+}
+
+.fa-tumblr {
+  background: #2c4762;
+  color: white;
+}
+
+.fa-vine {
+  background: #00b489;
+  color: white;
+}
+
+.fa-foursquare {
+  background: #45bbff;
+  color: white;
+}
+
+.fa-stumbleupon {
+  background: #eb4924;
+  color: white;
+}
+
+.fa-flickr {
+  background: #f40083;
+  color: white;
+}
+
+.fa-yahoo {
+  background: #430297;
+  color: white;
+}
+
+.fa-soundcloud {
+  background: #ff5500;
+  color: white;
+}
+
+.fa-reddit {
+  background: #ff5700;
+  color: white;
+}
+
+.fa-rss {
+  background: #ff6600;
+  color: white;
+}
+
+
+p.ex1 {display: none;}
+p.ex2 {display: block;}
+
+</style>
+</head>
+<body>
+
+<h2>Style Social Media Buttons</h2>
+
+<div id="imgView"></div>
+<button onclick="iconView()">클릭</button>
+<hr>
+<h2>이미 존재하는 tag들을 display 속성으로 view 화면 조절해보기</h2>
+<div id="imgView2">
+		<a href="#" class="fa fa-facebook"></a>
+		<a href="#" class="fa fa-twitter"></a>
+		<a href="#" class="fa fa-google"></a>
+		<a href="#" class="fa fa-youtube"></a>
+		<a href="#" class="fa fa-instagram"></a>
+</div>
+<button onclick="displayView('block')">화면 보이기</button>
+<button onclick="displayView('none')">화면 숨기기</button>
+
+<script type="text/javascript">
+	function displayView(v){
+		document.getElementById("imgView2").style.display=v;
+	}
+
+	function iconView(){
+	document.getElementById("imgView").innerHTML
+	=	'<a href="#" class="fa fa-facebook"></a>'
+		+'<a href="#" class="fa fa-twitter"></a>'
+		+'<a href="#" class="fa fa-google"></a>'
+		+'<a href="#" class="fa fa-youtube"></a>'
+		+'<a href="#" class="fa fa-instagram"></a>'
+}
+	
+	
+	</script>
+
+
+
+      
+</body>
+</html> 

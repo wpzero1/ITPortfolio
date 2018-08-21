@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js6JSON.html</title>
+</head>
+<body>
+	Java Script Object Notation(JSON) 학습 <br>
+	<div id="dataView"></div>
+	<div id="dataView2"></div> <!--  데이터 테스트를 위해서 여러개 만들어보자 -->
+	
+	<!--  person3의 데이터 중 이름 버튼을 클릭하면 input tag에 출력하기 -->
+	
+	<button onclick="myFun()">이름 출력</button>
+	<br>
+	<input type="text" id="viewDataName">
+	
+	
+	
+	
+	
+	
+	
+	<script type="text/javascript">
+	//java script의 객체
+	//사용방법 : key로 value 값 사용 가능
+	var person ={name:"자바", age:10};
+	document.getElementById("dataView").innerText = person.name;
+	
+	var person2 ={"name":"자바", "age":20};
+	document.getElementById("dataView").innerText = person2.name + " " + person2.age;
+	
+	//순수 문자열 -> key로 value 사용 가능한 JSON 객체로 변환하려면 가공 작업 필수!
+	//JSON.parse()
+	var person3 ='{"name":"자바", "age":30}';
+	person3 = JSON.parse(person3);
+	document.getElementById("dataView").innerText = person3.name + " " + person3.age;
+	
+	
+	
+	//JSON.parse()의 한계 : key와 value가 반드시 쌍따옴표여야 함.
+	//이 경우, eval() : 단일따옴표의 문자열 대이터를 JSON 객체로 변환. 데이터 앞뒤에 () 표기 필수
+	var person4 ="{'name':'자바', 'age':40}"; //근데 실제로는 안에가 단일따옴표인 경우도 많다.
+	person4 = eval("("+person4 +")");
+	//person4 = JSON.parse(person4);
+	document.getElementById("dataView2").innerText = person4.name + " " + person4.age;
+	
+	function myFun(){
+		document.getElementById("viewDataName").value=person3.name
+	}	
+	</script>
+	
+</body>
+</html>
