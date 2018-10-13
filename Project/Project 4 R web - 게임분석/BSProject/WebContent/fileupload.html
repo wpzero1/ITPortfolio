@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="EUC-KR">
+<style>
+
+</style>
+
+<link rel="stylesheet" href="css/dropzone.css" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<title>File Upload</title>
+</head>
+
+<body>
+
+	<form action="fileupload.jsp" method="post" class="dropzone"
+		id="myDropzone" enctype="multipart/form-data"></form>
+	<div align='center'>
+		<button class="btn btn-info" type="submit" id="submit-all">파일 업로드</button>
+	</div>
+
+<!--  업로드 관련 JS -->
+	<script src="js/dropzone.js"></script>
+	<script>
+
+// var cleanFilename = function (name) {
+
+//    return name.toLowerCase().replace(/[^\w]/gi, '');
+
+// };
+
+Dropzone.options.myDropzone = {
+
+  init: function() {},
+  
+  uploadMultiple: false,
+
+  parallelUploads: 3,
+  
+  paramName: "file", // The name that will be used to transfer the file
+
+  maxFilesize: 30, // MB
+
+  acceptedFiles: ".csv",
+
+  maxFiles: 3,
+
+  dictDefaultMessage: "여기에 파일을 끌어놓거나 클릭해서 업로드를 할 수 있습니다.", // message display on drop area
+
+  dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+
+  dictInvalidFileType: "파일 형식이 잘못되었습니다.",
+
+  dictFileTooBig: "File is too big {{filesize}}. Max filesize: {{maxFilesize}}MiB.",
+
+  dictResponseError: "Server error: {{statusCode}}",
+
+  dictMaxFilesExceeded: "업로드 개수를 초과하였습니다.",
+  
+  // renameFilename: cleanFilename,
+
+  init: function() {
+	  var submitButton = document.querySelector("#submit-all");
+      var wrapperThis = this;
+
+      
+      submitButton.addEventListener("click", function () {
+          wrapperThis.processQueue();
+          //wrapperThis.removeAllFiles(true);
+          alert("신규데이터 대시보드로 이동합니다");
+          location.href="dashboard-newdata.jsp";
+      });
+      
+
+      this.on("addedfile", function (file) {
+
+          // Create the remove button
+          var removeButton = Dropzone.createElement("<center><button class='btn btn-info'>Remove File</button></center>");
+
+          // Listen to the click event
+          removeButton.addEventListener("click", function (e) {
+              // Make sure the button click doesn't submit the form:
+              e.preventDefault();
+              e.stopPropagation();
+
+              // Remove the file preview.
+              wrapperThis.removeFile(file);
+              // If you want to the delete the file on the server as well,
+              // you can do the AJAX request here.
+          });
+
+          // Add the button to the file preview element.
+          file.previewElement.appendChild(removeButton);
+      });
+
+      this.on("maxfilesexceeded", function(file) {
+
+          this.removeAllFiles();
+
+          this.addFile(file);
+
+    });
+
+      this.on('sendingmultiple', function (data, xhr, formData) {
+          formData.append("Username", $("#Username").val());
+      });
+  }
+};
+   </script>
+   
+</body>
+</html>

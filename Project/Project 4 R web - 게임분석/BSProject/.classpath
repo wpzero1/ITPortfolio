@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_171">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/RCaller-2.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/REngine.jar"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/REngine-2.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/rengine-200910.jar"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/renjin-script-engine-0.9.2657-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/Rserve-1.8-5.jar"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/RserveEngine.jar"/>
+	<classpathentry kind="lib" path="C:/ITStudy/R/Team/Rsession/Rsession-2.0.4.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
